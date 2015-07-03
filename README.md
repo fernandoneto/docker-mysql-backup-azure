@@ -18,6 +18,7 @@
 
 # example of running a container
 
+```bash
 docker run --rm -ti --name=mysql-backup \
   -e "AZURE_STORAGE_ACCOUNT=" \
   -e "AZURE_STORAGE_ACCESS_KEY=" \
@@ -29,7 +30,7 @@ docker run --rm -ti --name=mysql-backup \
   -e "PATH_DATEPATTERN=%Y/%m" \
   --link (mysql_container):mysql \
   fernandoneto/mysql-backup
-
+```
 ###Future features
 
 * You must be able to choose how many backups store in Azure 
