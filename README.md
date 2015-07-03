@@ -2,14 +2,14 @@
 
 # variables you must define when you run the container
 
-- CONTAINER
-- BACKUP_INTERVAL
-- DB_NAME
-- DB_USER
-- DB_PASSWORD
-- PATH_DATEPATTERN
+- CONTAINER - Container name in Azure Cloud Storage
+- BACKUP_INTERVAL - Time in seconds
+- DB_NAME - Database name
+- DB_USER - Username
+- DB_PASSWORD - Password
+- PATH_DATEPATTERN - %Y/%m"
 - AZURE_STORAGE_ACCOUNT
-- AZURE_STORAGE_ACCESS_KEY
+- AZURE_STORAGE_ACCESS_KEY  
 
 # variables to change port or host
 
@@ -29,3 +29,7 @@ docker run --rm -ti --name=mysql-backup \
   -e "PATH_DATEPATTERN=%Y/%m" \
   --link (mysql_container):mysql \
   fernandoneto/mysql-backup
+
+###Future features
+
+* You must be able to choose how many backups store in Azure 
