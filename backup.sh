@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATETIME=`date +"%Y-%m-%d_%H-%M"`
-FILENAME=$DATETIME.sql
+FILENAME=findhit-$DATETIME.sql
 
 mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password="$DB_PASSWORD" $DB_NAME > $FILENAME
 
