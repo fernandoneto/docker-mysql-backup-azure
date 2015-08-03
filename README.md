@@ -1,36 +1,28 @@
-# docker-mysql-backup-azure
+# Docker-mysql-backup-azure
 
-# variables you must define when you run the container
+# Variables you must define when you run the container
 
-- CONTAINER - Container name in Azure Cloud Storage
-- BACKUP_INTERVAL - Time in seconds
-- DB_NAME - Database name
-- DB_USER - Username
-- DB_PASSWORD - Password
-- PATH_DATEPATTERN - %Y/%m"
-- AZURE_STORAGE_ACCOUNT
-- AZURE_STORAGE_ACCESS_KEY  
+- $DB_PASSWORD - db password
+- $DB_USER - db user name
+- $DB_NAME - db name you want backup
+- $CONTAINER - container name in azure storage
+- $AZURE_STORAGE_ACCOUNT -
+- $AZURE_STORAGE_ACCESS_KEY -
+- $MYSQL_PORT - 3306
+- $MYSQL_HOST - host where mysql is running
 
-# variables to change port or host
-
-- MYSQL_PORT_3306_TCP_ADDR
-- MYSQL_PORT_3306_TCP_PORT
-
-# example of running a container
+# Example of running
 
 ```bash
-docker run --rm -ti --name=mysql-backup \
-  -e "AZURE_STORAGE_ACCOUNT=" \
-  -e "AZURE_STORAGE_ACCESS_KEY=" \
-  -e "CONTAINER=" \
-  -e "BACKUP_INTERVAL=" \
-  -e "DB_NAME=findhit" \
-  -e "DB_USER=root" \
-  -e "DB_PASSWORD=findhit" \
-  -e "PATH_DATEPATTERN=%Y/%m" \
-  --link (mysql_container):mysql \
-  fernandoneto/mysql-backup
-```
-###Future features
+docker run -rm --name mysql-backup \
+-e "DB_PASSWORD=" \
+-e "DB_USER=" \
+-e "DB_NAME=" \
+-e "AZURE_STORAGE_ACCOUNT="
+-e "AZURE_STORAGE_ACCESS_KEY="
+-e "CONTAINER=" \
+-e "MYSQL_PORT=3306" \
+-e "MYSQL_HOST=" \
+fernandoneto/docker-mysql-backup-azure
 
-* You must be able to choose how many backups store in Azure 
+```
