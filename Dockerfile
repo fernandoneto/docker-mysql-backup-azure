@@ -12,4 +12,6 @@ RUN npm install -g n azure-cli
 ADD backup.sh /backup.sh
 RUN chmod 0755 /backup.sh
 
+EXPOSE 3306
+
 ENTRYPOINT ["/backup.sh"]
