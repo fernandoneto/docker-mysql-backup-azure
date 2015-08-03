@@ -1,15 +1,19 @@
 # Docker-mysql-backup-azure
 
+mysql container to backup your database to Microsoft Azure Storare
+
 # Variables you must define when you run the container
 
-- $DB_PASSWORD - db password
-- $DB_USER - db user name
-- $DB_NAME - db name you want backup
-- $CONTAINER - container name in azure storage
-- $AZURE_STORAGE_ACCOUNT -
-- $AZURE_STORAGE_ACCESS_KEY -
-- $MYSQL_PORT - 3306
-- $MYSQL_HOST - host where mysql is running
+- `$DB_PASSWORD` - The password to connect with Mysql
+- `$DB_USER` - The username to connect with Mysql
+- `$DB_NAME` - Database name
+- `$CONTAINER` - Container name in azure
+- `$AZURE_STORAGE_ACCOUNT` - Name of Azure Storare Account
+- `$AZURE_STORAGE_ACCESS_KEY` - Acess Key for Storage Account
+- `$MYSQL_PORT` - Port to connect with Mysql. default 3306  
+- `$MYSQL_HOST` - Host where mysql is running
+- `$FILENAME` - Name to file in Azure Storage. Default name default-date +"%Y-%m-%d_%H-%M"`
+output will be `default-2015-08-03_17-58`
 
 # Example of running
 
