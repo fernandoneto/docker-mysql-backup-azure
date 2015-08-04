@@ -1,6 +1,6 @@
 # Docker-mysql-backup-azure
 
-mysql container to backup your database to Microsoft Azure Storare
+mysql container to backup your database's to Microsoft Azure Storare
 
 # Variables you must define when you run the container
 
