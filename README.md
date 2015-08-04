@@ -1,19 +1,25 @@
 # Docker-mysql-backup-azure
 
-mysql container to backup your database's to Microsoft Azure Storare
+container to backup your mysql database's to Microsoft Azure Storare.
 
-# Variables you must define when you run the container
+# Environment variables
 
-- `$DB_PASSWORD` - The password to connect with Mysql
-- `$DB_USER` - The username to connect with Mysql
-- `$DB_NAME` - Database name
-- `$CONTAINER` - Container name in azure
-- `$AZURE_STORAGE_ACCOUNT` - Name of Azure Storare Account
-- `$AZURE_STORAGE_ACCESS_KEY` - Acess Key for Storage Account
-- `$MYSQL_PORT` - Port to connect with Mysql. default 3306  
-- `$MYSQL_HOST` - Host where mysql is running
-- `$FILENAME` - Name to file in Azure Storage. Default name default-date +"%Y-%m-%d_%H-%M"`
-output will be `default-2015-08-03_17-58`
+- _`$DB_PASSWORD`_ - The password to connect with Mysql
+- _`$DB_USER`_ - The username to connect with Mysql
+- _`$DB_NAME`_ - Database name
+- _`$CONTAINER`_ - Container name in azure
+- _`$AZURE_STORAGE_ACCOUNT`_ - Name of Azure Storare Account
+- _`$AZURE_STORAGE_ACCESS_KEY`_ - Acess Key for Storage Account
+- _`$MYSQL_PORT`_ - Port to connect with Mysql. default 3306  
+- _`$MYSQL_HOST`_ - Host where mysql is running
+- _`$FILENAME`_ - Name to file in Azure Storage. Default name `default-date +"%Y-%m-%d_%H-%M"` output example `default-2015-08-03_17-58`
+
+# Container startup explained
+
+* Mysql will acess to the host where is database you want to backup
+* Mysql will dump the database to this container and compress it using gzip
+* Using azure-cli the file will be uploaded to Azure Storage
+* Container will exit
 
 # Example of running
 
@@ -29,4 +35,14 @@ docker run -rm --name mysql-backup \
 -e "MYSQL_HOST=" \
 fernandoneto/docker-mysql-backup-azure
 
+```
+
+This will upload to Azure Stora a file named `default-2015-08-04_09-47.sql.gz`
+
+## Developing
+
+### Building image
+
+```bash
+docker build -t fernandoneto/docker-mysql-backup-azure .
 ```
