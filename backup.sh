@@ -24,10 +24,6 @@ gzip $FILENAME-$DATETIME.sql
 
 ls -la
 
-while [ "1" = "1" ]; do 
-    sleep 60
-done
-
 azure storage blob upload $FILENAME-$DATETIME.sql.gz $CONTAINER
 
   if  [ "$?" != "0" ]; then
