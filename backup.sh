@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATETIME=`date +"%Y-%m-%d_%H-%M"`
+DATETIME=`date +"%Y-%m-%d_%H"`
 
 if [ "$MYSQL_PORT" == "" ]; then
     MYSQL_PORT="3306";
