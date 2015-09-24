@@ -22,6 +22,8 @@ gzip $FILENAME-$DATETIME.sql
     exit 1
   fi
 
+ls -la
+
 azure storage blob upload $FILENAME-$DATETIME.sql.gz $CONTAINER
 
   if  [ "$?" != "0" ]; then
