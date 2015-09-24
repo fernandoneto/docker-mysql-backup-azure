@@ -8,7 +8,7 @@ RUN apt-get update -y -q && \
   rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g n azure-cli
-RUN n latest
+RUN n 0.12.7
 
 ADD backup.sh /backup.sh
 RUN chmod 0755 /backup.sh
