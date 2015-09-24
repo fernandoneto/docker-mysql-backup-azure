@@ -7,22 +7,22 @@ if [ "$MYSQL_PORT" == "" ]; then
 fi
 
 if [ "$FILENAME" == "" ]; then
-    FILENAME="default-$DATETIME.sql";
+    FILENAME="default";
 fi
 
-mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME > $FILENAME
+mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME > $FILENAME-$DATETIME.sql
 
   if  [ "$?" != "0" ]; then
     exit 1
   fi
 
-gzip $FILENAME
+gzip $FILENAME-$DATETIME.sql
 
   if  [ "$?" != "0" ]; then
     exit 1
   fi
 
-azure storage blob upload $FILENAME.gz $CONTAINER
+azure storage blob upload $FILENAME-$DATETIME.gz $CONTAINER
 
   if  [ "$?" != "0" ]; then
     exit 1
