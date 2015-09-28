@@ -1,8 +1,10 @@
 #!/bin/bash
 
+. /functions.sh
+
 DATETIME=`date +"%Y-%m-%d_%H"`
 
-if [ "$MYSQL_PORT" == "" ]; then
+f [ "$MYSQL_PORT" == "" ]; then
     MYSQL_PORT="3306";
 fi
 
@@ -10,20 +12,19 @@ if [ "$FILENAME" == "" ]; then
     FILENAME="default";
 fi
 
-mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME > $FILENAME-$DATETIME.sql
+if [ "$BACKUP_WINDOW" == "" ]; then
+    BACKUP_WINDOW="0  6 * * *";
+fi
 
-  if  [ "$?" != "0" ]; then
-    exit 1
-  fi
+if  [ "$ONE_SHOOT" == "true" ]; then
+    make_backup;
+    exit 0;
+fi
 
-gzip $FILENAME-$DATETIME.sql
+# scheduele backup window
+crontab -l | { cat; echo "$BACKUP_WINDOW /backup/functions.sh"; } | crontab -;
 
-  if  [ "$?" != "0" ]; then
-    exit 1
-  fi
-
-azure storage blob upload $FILENAME-$DATETIME.sql.gz $CONTAINER -c "DefaultEndpointsProtocol=https;BlobEndpoint=https://$AZURE_STORAGE_ACCOUNT.blob.core.windows.net/;AccountName=$AZURE_STORAGE_ACCOUNT;AccountKey=$AZURE_STORAGE_ACCESS_KEY"
-
-  if  [ "$?" != "0" ]; then
-    exit 1
-  fi
+while [ true ]; do
+    sleep 3600;
+    echo "Hy im still alive since the last time you check me !!!!! "
+done

@@ -10,9 +10,10 @@ RUN apt-get update -y -q && \
 RUN npm install -g n azure-cli
 RUN n 0.12.7
 
-ADD backup.sh /backup.sh
-RUN chmod 0755 /backup.sh
+RUN mkdir -p /backup
+ADD . /backup
+RUN chmod 0755 /backup/*
 
 EXPOSE 3306
 
-ENTRYPOINT ["/backup.sh"]
+ENTRYPOINT ["/backup/backup.sh"]
