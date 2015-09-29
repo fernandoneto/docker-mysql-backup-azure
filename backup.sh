@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /functions.sh
+. /backup/functions.sh
 
 if  [ "$ONE_SHOOT" == "true" ]; then
     make_backup;
