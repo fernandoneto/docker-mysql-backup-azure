@@ -9,4 +9,4 @@ make_backup () {
 
 }
 
-make_backup
+make_backup;

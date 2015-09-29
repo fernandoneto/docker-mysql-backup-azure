@@ -24,7 +24,6 @@ fi
 # scheduele backup window
 crontab -l | { cat; echo "$BACKUP_WINDOW /backup/functions.sh"; } | crontab -;
 
-while [ true ]; do
-    sleep 3600;
-    echo "Hy im still alive since the last time you check me !!!!! "
-done
+cron -f -L 8
+
+exit $?
