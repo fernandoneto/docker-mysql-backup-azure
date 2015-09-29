@@ -1,3 +1,19 @@
+#!/bin/bash
+
+DATETIME=`date +"%Y-%m-%d_%H"`
+
+if [ "$MYSQL_PORT" == "" ]; then
+    MYSQL_PORT="3306";
+fi
+
+if [ "$FILENAME" == "" ]; then
+    FILENAME="default";
+fi
+
+if [ "$BACKUP_WINDOW" == "" ]; then
+    BACKUP_WINDOW="0  6 * * *";
+fi
+
 make_backup () {
 
     # dump database
