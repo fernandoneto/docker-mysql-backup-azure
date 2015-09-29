@@ -10,10 +10,6 @@ if [ "$FILENAME" == "" ]; then
     FILENAME="default";
 fi
 
-if [ "$BACKUP_WINDOW" == "" ]; then
-    BACKUP_WINDOW="0  6 * * *";
-fi
-
 make_backup () {
 
     # dump database
