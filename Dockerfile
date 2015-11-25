@@ -14,6 +14,4 @@ RUN mkdir -p /backup
 ADD . /backup
 RUN chmod 0755 /backup/*
 
-EXPOSE 3306
-
 ENTRYPOINT ["/backup/backup.sh"]
