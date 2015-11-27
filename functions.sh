@@ -26,6 +26,11 @@ make_backup () {
 
     fi
 
+    # exit if last command have problems
+    if  [ "$?" != "0" ]; then
+        echo "Error occurred in database dump process. Exiting now"
+        exit 1
+    fi
     # compress the file
     gzip -9 $FILENAME-$DATETIME.sql
     # Send to cloud storage
