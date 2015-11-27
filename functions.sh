@@ -10,10 +10,22 @@ if [ "$FILENAME" == "" ]; then
     FILENAME="default";
 fi
 
+if [ "$NO_PASSWORD" == "" ]; then
+    NO_PASSWORD="false";
+fi
+
 make_backup () {
 
-    # dump database
-    mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME > $FILENAME-$DATETIME.sql
+    if [ "$NO_PASSWORD" == "true" ]; then
+
+        mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER $DB_NAME > $FILENAME-$DATETIME.sql;
+
+    else
+
+        mysqldump -h $MYSQL_HOST -P $MYSQL_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME > $FILENAME-$DATETIME.sql;
+
+    fi
+
     # compress the file
     gzip -9 $FILENAME-$DATETIME.sql
     # Send to cloud storage
