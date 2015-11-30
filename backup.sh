@@ -10,7 +10,8 @@ if  [ "$ONE_SHOOT" == "true" ]; then
 else
     # scheduele backup window
     touch /var/log/cron.log;
-    crontab -l | { cat; echo "$BACKUP_WINDOW /backup/functions.sh >> /var/log/cron.log 2>&1"; } | crontab -;
+    echo "$BACKUP_WINDOW /backup/functions.sh >> /var/log/cron.log 2>&1" >> job
+    crontab job
     tail -f /var/log/cron.log;
     exit $?
 fi
