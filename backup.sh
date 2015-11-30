@@ -9,7 +9,8 @@ if  [ "$ONE_SHOOT" == "true" ]; then
     exit 0
 else
     # scheduele backup window
-    crontab -l | { cat; echo "$BACKUP_WINDOW /backup/functions.sh"; } | crontab -;
-    cron -f -L 8;
+    touch /var/log/cron.log;
+    crontab -l | { cat; echo "$BACKUP_WINDOW /backup/functions.sh >> /var/log/cron.log 2>&1"; } | crontab -;
+    tail -f /var/log/cron.log;
     exit $?
 fi
