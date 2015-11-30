@@ -3,18 +3,28 @@
 DATETIME=`date +"%Y-%m-%d_%H"`
 
 if [ "$MYSQL_PORT" == "" ]; then
-    MYSQL_PORT="3306";
+    export MYSQL_PORT="3306";
 fi
 
 if [ "$FILENAME" == "" ]; then
-    FILENAME="default";
+    export FILENAME="default";
 fi
 
 if [ "$NO_PASSWORD" == "" ]; then
-    NO_PASSWORD="false";
+    export NO_PASSWORD="false";
 fi
 
 make_backup () {
+
+    if ["$DEBUG" == "true" ]; then
+        echo "######################################"
+        echo "MYSQL_HOST = $MYSQL_HOST"
+        echo "MYSQL_PORT = $MYSQL_PORT"
+        echo "DB_USER = $DB_USER"
+        echo "DB_PASSWORD = $DB_PASSWORD"
+        echo "DB_NAME = $DB_NAME"
+        echo "######################################"
+    fi
 
     if [ "$NO_PASSWORD" == "true" ]; then
 
