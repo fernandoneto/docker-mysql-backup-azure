@@ -16,7 +16,7 @@ fi
 
 make_backup () {
 
-    if ["$DEBUG" == "true" ]; then
+    if [ "$DEBUG" == "true" ]; then
         echo "######################################"
         echo "MYSQL_HOST = $MYSQL_HOST"
         echo "MYSQL_PORT = $MYSQL_PORT"
