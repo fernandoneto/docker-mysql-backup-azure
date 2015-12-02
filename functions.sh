@@ -16,19 +16,27 @@ fi
 
 make_backup () {
 
+    export FILENAME={{FILENAME}}
+    export CONTAINER={{CONTAINER}}
     export MYSQL_HOST={{MYSQL_HOST}}
     export MYSQL_PORT={{MYSQL_PORT}}
     export DB_USER={{DB_USER}}
     export DB_PASSWORD={{DB_PASSWORD}}
     export DB_NAME={{DB_NAME}}
     export DEBUG={{DEBUG}}
+    export AZURE_STORAGE_ACCOUNT={{AZURE_STORAGE_ACCOUNT}}
+    export AZURE_STORAGE_ACCESS_KEY={{AZURE_STORAGE_ACCESS_KEY}}
 
     if [ "$DEBUG" == "true" ]; then
         echo "######################################"
+        echo "FILENAME = $FILENAME"
+        echo "CONTAINER = $CONTAINER"
         echo "MYSQL_HOST = $MYSQL_HOST"
         echo "MYSQL_PORT = $MYSQL_PORT"
         echo "DB_USER = $DB_USER"
         echo "DB_PASSWORD = $DB_PASSWORD"
+        echo "AZURE_STORAGE_ACCOUNT = $AZURE_STORAGE_ACCOUNT"
+        echo "AZURE_STORAGE_ACCESS_KEY = $AZURE_STORAGE_ACCESS_KEY "
         echo "DB_NAME = $DB_NAME"
         echo "######################################"
     fi
@@ -57,7 +65,7 @@ make_backup () {
         exit 1
     fi
     # Remove file to save space
-    rm -fR $FILENAME-$DATETIME.sql.gz
+    rm -fR *.sql.gz
 
 }
 
