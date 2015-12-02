@@ -3,18 +3,43 @@
 DATETIME=`date +"%Y-%m-%d_%H"`
 
 if [ "$MYSQL_PORT" == "" ]; then
-    MYSQL_PORT="3306";
+    export MYSQL_PORT="3306";
 fi
 
 if [ "$FILENAME" == "" ]; then
-    FILENAME="default";
+    export FILENAME="default";
 fi
 
 if [ "$NO_PASSWORD" == "" ]; then
-    NO_PASSWORD="false";
+    export NO_PASSWORD="false";
 fi
 
 make_backup () {
+
+    export FILENAME={{FILENAME}}
+    export CONTAINER={{CONTAINER}}
+    export MYSQL_HOST={{MYSQL_HOST}}
+    export MYSQL_PORT={{MYSQL_PORT}}
+    export DB_USER={{DB_USER}}
+    export DB_PASSWORD={{DB_PASSWORD}}
+    export DB_NAME={{DB_NAME}}
+    export DEBUG={{DEBUG}}
+    export AZURE_STORAGE_ACCOUNT={{AZURE_STORAGE_ACCOUNT}}
+    export AZURE_STORAGE_ACCESS_KEY={{AZURE_STORAGE_ACCESS_KEY}}
+
+    if [ "$DEBUG" == "true" ]; then
+        echo "######################################"
+        echo "FILENAME = $FILENAME"
+        echo "CONTAINER = $CONTAINER"
+        echo "MYSQL_HOST = $MYSQL_HOST"
+        echo "MYSQL_PORT = $MYSQL_PORT"
+        echo "DB_USER = $DB_USER"
+        echo "DB_PASSWORD = $DB_PASSWORD"
+        echo "AZURE_STORAGE_ACCOUNT = $AZURE_STORAGE_ACCOUNT"
+        echo "AZURE_STORAGE_ACCESS_KEY = $AZURE_STORAGE_ACCESS_KEY "
+        echo "DB_NAME = $DB_NAME"
+        echo "######################################"
+    fi
 
     if [ "$NO_PASSWORD" == "true" ]; then
 
@@ -34,13 +59,13 @@ make_backup () {
     # compress the file
     gzip -9 $FILENAME-$DATETIME.sql
     # Send to cloud storage
-    azure storage blob upload $FILENAME-$DATETIME.sql.gz $CONTAINER -c "DefaultEndpointsProtocol=https;BlobEndpoint=https://$AZURE_STORAGE_ACCOUNT.blob.core.windows.net/;AccountName=$AZURE_STORAGE_ACCOUNT;AccountKey=$AZURE_STORAGE_ACCESS_KEY"
+    /usr/local/bin/azure storage blob upload $FILENAME-$DATETIME.sql.gz $CONTAINER -c "DefaultEndpointsProtocol=https;BlobEndpoint=https://$AZURE_STORAGE_ACCOUNT.blob.core.windows.net/;AccountName=$AZURE_STORAGE_ACCOUNT;AccountKey=$AZURE_STORAGE_ACCESS_KEY"
 
     if  [ "$?" != "0" ]; then
         exit 1
     fi
     # Remove file to save space
-    rm -fR $FILENAME-$DATETIME.sql.gz
+    rm -fR *.sql.gz
 
 }
 

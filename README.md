@@ -25,6 +25,10 @@ container to backup your mysql database's to Microsoft Azure Storare.
 - _`$ONE_SHOOT`_ - If true the container make the backup and exit, else the container still running and schedule a job in crontab. default false
 a backup window.
 - _`$BACKUP_WINDOW`_ - What time should backup run. you should use crontab format, so see [documentation](http://www.freebsd.org/cgi/man.cgi?crontab(5). default value every day at 6 am.
+- _`$DEBUG`_ - If true will give you the value of all variables in terminal. default to false 
+- _`$NO_PASSWORD`_ - Connect to Mysql-Host without password, default to false
+
+
 
 # Example of running
 
