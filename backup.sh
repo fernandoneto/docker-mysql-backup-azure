@@ -12,16 +12,16 @@ if  [ "$ONE_SHOOT" == "true" ]; then
     exit 0
 
 else
-
-    sed 's,{{MYSQL_HOST}},'"${MYSQL_HOST}"',g' -i /backup/variable.sh
-    sed 's,{{MYSQL_PORT}},'"${MYSQL_PORT}"',g' -i /backup/variable.sh
-    sed 's,{{DB_USER}},'"${DB_USER}"',g' -i /backup/variable.sh
-    sed 's,{{DB_PASSWORD}},'"${DB_PASSWORD}"',g' -i /backup/variable.sh
-    sed 's,{{DB_NAME}},'"${DB_NAME}"',g' -i /backup/variable.sh
+    sed 's,{{MYSQL_HOST}},'"${MYSQL_HOST}"',g' -i /backup/functions.sh
+    sed 's,{{MYSQL_PORT}},'"${MYSQL_PORT}"',g' -i /backup/functions.sh
+    sed 's,{{DB_USER}},'"${DB_USER}"',g' -i /backup/functions.sh
+    sed 's,{{DB_PASSWORD}},'"${DB_PASSWORD}"',g' -i /backup/functions.sh
+    sed 's,{{DB_NAME}},'"${DB_NAME}"',g' -i /backup/functions.sh
+    sed 's,{{DEBUG}},'"${DEBUG}"',g' -i /backup/functions.sh
     touch /var/log/cron.log;
     echo "$BACKUP_WINDOW /backup/variable.sh & /backup/functions.sh >> /var/log/cron.log 2>&1" >> job;
     echo "" >> job
-    crontab job;
+    crontab job; cron;
     tail -f /var/log/cron.log;
     exit $?
 
